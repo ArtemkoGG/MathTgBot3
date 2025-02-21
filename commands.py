@@ -1,0 +1,6 @@
+START_COMMAND = "start"
+QUADRATIC = "quadratic_equations"
+NSD = "nsd"
+NSK = "nsk"
+PERIMETR = "perimetr"
+AREA = "area"
