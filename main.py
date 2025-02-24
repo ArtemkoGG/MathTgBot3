@@ -29,10 +29,8 @@ async def command_start(message: Message) -> None:
         "Я математичний бот Артема який допоможе з різними задачами \n\n"
         "Ось, що я можу:\n"
         "1. Квадратні рівняння.\n"
-        "2. Обчислити НСД\n"
-        "3. Обчислити НСК\n"
-        "4. Обчислити периметр фігур\n"
-        "5. Обчислити площу фігур"
+        "2. Обчислити периметр фігур\n"
+        "3. Обчислити площу фігур"
 
     )
 
@@ -46,9 +44,8 @@ async def main() -> None:
         [
             BotCommand(command="start", description="1.Зaпуск ботa"),
             BotCommand(command="quadratic_equations", description="2.Квадратні рівняння"),
-            BotCommand(command="nsd", description="3.Визначити НСД"),
-            BotCommand(command="perimetr", description="4.Визначити периметр"),
-            BotCommand(command="area", description="5.Визначити площу"),
+            BotCommand(command="perimetr", description="3.Визначити периметр"),
+            BotCommand(command="area", description="4.Визначити площу"),
         ]
     )
 
