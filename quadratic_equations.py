@@ -1,13 +1,13 @@
 from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
+from commands import QUADRATIC
 
 router = Router()
 
-@router.message(Command("quadratic_equations"))
+@router.message(Command(QUADRATIC))
 async def quadratic_equations(message: Message):
     await message.answer("Введіть коефіцієнти квадратного рівняння (a, b, c)")
-    return
 
 @router.message()
 async def solve_quadratic(message: Message):
