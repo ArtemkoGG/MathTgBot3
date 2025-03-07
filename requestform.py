@@ -4,8 +4,8 @@ from aiogram.fsm.state import State, StatesGroup
 class Form(StatesGroup):
     parameters = State()
 
-class Figures(StatesGroup):
+class Area(StatesGroup):
     parameters = State()
 
-class Figure(StatesGroup):
+class Perimetr(StatesGroup):
     parameters = State()

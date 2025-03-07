@@ -1,10 +1,6 @@
-from aiogram import Router
-from aiogram.types import Message
-from aiogram.filters import Command
 from commands import AREA
 from aiogram.fsm.context import FSMContext
-from requestform import Figure
-from random import randint
+from requestform import Area
 from aiogram import F, Router
 from aiogram.filters import Command
 from aiogram.filters.callback_data import CallbackQuery
@@ -25,6 +21,9 @@ async def area(message: Message):
     builder.row(InlineKeyboardButton(text="Трикутник", callback_data="a_figures_triangle"))
     builder.add(InlineKeyboardButton(text="Квадрат", callback_data="a_figures_square"))
     builder.add(InlineKeyboardButton(text="Коло", callback_data="a_figures_circle"))
+    builder.add(InlineKeyboardButton(text="Прямокутник", callback_data="a_figures_rectangle"))
+
+    builder.adjust(1)
 
     await message.answer("Площу якої фігури в бажаєте визначити?", reply_markup=builder.as_markup())
 
@@ -35,7 +34,7 @@ async def solve_area(calback: CallbackQuery, state: FSMContext):
 
     figures = calback.data.split("_")[-1]
     await calback.message.answer(f"Ви обрали фігуру {figures}")
-    await state.set_state(Figure.parameters)
+    await state.set_state(Area.parameters)
     FIGURES = figures
 
     if figures == "triangle":
@@ -47,14 +46,22 @@ async def solve_area(calback: CallbackQuery, state: FSMContext):
     elif figures == "circle":
         await calback.message.answer(f"Введіть радіус кола: r")
 
+    elif figures == "rectangle":
+        await calback.message.answer(f"Введіть сторони Прямокутника: a b")
 
-@router.message(Figure.parameters)
+
+@router.message(Area.parameters)
 async def solve_perimetr(message: Message, state: FSMContext):
     data: dict = await state.update_data(parameters=message.text)
 
     if FIGURES == "triangle":
         a, b, c = data['parameters'].split(" ")
+        a = int(a)
+        b = int(b)
+        c = int(c)
+
         s = (a + b + c) / 2
+        s = int(s)
         S = math.sqrt(s * (s - a) * (s - b) * (s - c))
 
     if FIGURES == "square":
@@ -64,6 +71,12 @@ async def solve_perimetr(message: Message, state: FSMContext):
     if FIGURES == "circle":
         r = int(data['parameters'])
         S = math.pi * r ** 2
+
+    if FIGURES == "rectangle":
+        a, b = data['parameters'].split(" ")
+        a = int(a)
+        b = int(b)
+        S = a * b
 
     await message.answer(f"Площа {FIGURES} = {S}")
     await state.clear()

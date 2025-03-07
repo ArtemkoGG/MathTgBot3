@@ -2,7 +2,6 @@ from aiogram import Router
 from aiogram.types import Message
 from aiogram.filters import Command
 from commands import QUADRATIC
-from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from requestform import Form
 router = Router()
