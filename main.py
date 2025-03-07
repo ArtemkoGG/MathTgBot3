@@ -12,15 +12,18 @@ from aiogram.types import Message
 from dotenv import load_dotenv
 
 from aiogram.types import BotCommand
-from quadratic_equations import router
-
+from quadratic_equations import router as qr
+from perimetr import router as pr
+from area import router as ar
 
 load_dotenv()
 
 TOKEN = getenv("TOKEN")
 
 dp = Dispatcher()
-dp.include_router(router)
+dp.include_router(qr)
+dp.include_router(pr)
+dp.include_router(ar)
 
 
 @dp.message(CommandStart())
