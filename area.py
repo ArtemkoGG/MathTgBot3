@@ -22,6 +22,7 @@ async def area(message: Message):
     builder.add(InlineKeyboardButton(text="Квадрат", callback_data="a_figures_square"))
     builder.add(InlineKeyboardButton(text="Коло", callback_data="a_figures_circle"))
     builder.add(InlineKeyboardButton(text="Прямокутник", callback_data="a_figures_rectangle"))
+    builder.add(InlineKeyboardButton(text="Трапеція", callback_data="a_figures_trapeze"))
 
     builder.adjust(1)
 
@@ -48,6 +49,9 @@ async def solve_area(calback: CallbackQuery, state: FSMContext):
 
     elif figures == "rectangle":
         await calback.message.answer(f"Введіть сторони Прямокутника: a b")
+
+    elif figures == "trapeze":
+        await calback.message.answer(f"Введіть основи та висоту Трапеції: a b h")
 
 
 @router.message(Area.parameters)
@@ -77,6 +81,13 @@ async def solve_perimetr(message: Message, state: FSMContext):
         a = int(a)
         b = int(b)
         S = a * b
+
+    if FIGURES == "trapeze":
+        a, b, h = data['parameters'].split(" ")
+        a = int(a)
+        b = int(b)
+        h = int(h)
+        S = ((a + b) * h) / 2
 
     await message.answer(f"Площа {FIGURES} = {S}")
     await state.clear()

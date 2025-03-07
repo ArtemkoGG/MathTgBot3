@@ -20,6 +20,8 @@ async def perimetr(message: Message):
     builder.add(InlineKeyboardButton(text="Квадрат", callback_data="p_figures_square"))
     builder.add(InlineKeyboardButton(text="Коло", callback_data="p_figures_circle"))
     builder.add(InlineKeyboardButton(text="Прямокутник", callback_data="p_figures_rectangle"))
+    builder.add(InlineKeyboardButton(text="Трапеція", callback_data="p_figures_trapeze"))
+
 
     builder.adjust(1)
 
@@ -47,6 +49,9 @@ async def solve_perimetr(calback: CallbackQuery, state: FSMContext):
     elif figure == "rectangle":
         await calback.message.answer(f"Введіть сторони Прямокутника: a b")
 
+    elif figure == "trapeze":
+        await calback.message.answer(f"Введіть сторони Трапеції: a b c d")
+
 
 @router.message(Perimetr.parameters)
 async def solve_perimetr(message: Message, state: FSMContext):
@@ -69,6 +74,14 @@ async def solve_perimetr(message: Message, state: FSMContext):
         a = int(a)
         b = int(b)
         P = 2 * (a + b)
+
+    if FIGURE == "trapeze":
+        a, b, c, d = map(int, data['parameters'].split())
+        a = int(a)
+        b = int(b)
+        c = int(c)
+        d = int(d)
+        P = a + b + c + d
 
     await message.answer(f"Периметр {FIGURE} = {P}")
     await state.clear()
